@@ -1,0 +1,166 @@
+This is long-ANSI-sample.info, produced by makeinfo version 4.8 from
+/Users/a/Documents/lisp-in-info/long-samp.texi.
+
+   This is a short manual.
+
+   This is the next paragraph
+
+
+Indirect:
+long-ANSI-sample.info-1: 177
+long-ANSI-sample.info-2: 295138
+
+Tag Table:
+(Indirect)
+Node: Top177
+Node: Introduction830
+Node: New Tools1670
+Node: New Techniques4873
+Node: A New Approach9133
+Node: Welcome to Lisp14658
+Node: Form15239
+Node: Evaluation18255
+Node: Data21284
+Node: List Operations24079
+Node: Truth25177
+Node: Functions (as programs)27675
+Node: Recursion29971
+Node: Reading Lisp33084
+Node: Input and Output35167
+Node: Variables38732
+Node: Assignment41593
+Node: Functional Programming42912
+Node: Iteration44981
+Node: Functions as Objects48239
+Node: Types51773
+Node: Looking Forward53112
+Node: Summary54595
+Node: Exercises56836
+Node: Lists58671
+Node: Conses59765
+Node: Equality62862
+Node: Why Lisp Has No Pointers63976
+Node: Building Lists66425
+Node: Example-- Compression67386
+Node: Access71397
+Node: Mapping Functions73065
+Node: Trees73898
+Node: Understanding Recursion76026
+Node: Sets79332
+Node: Sequences82954
+Node: Stacks86060
+Node: Dotted Lists87704
+Node: Assoc-lists90243
+Node: Example-- Shortest Path91324
+Node: Garbage95218
+Node: Summary299493
+Node: Specialized Data Structures102619
+Node: Arrays103294
+Node: Example-- Binary Search106299
+Node: Strings and Characters108986
+Node: Sequences--vectors and lists111240
+Node: Example-- Parsing Dates117595
+Node: Structures121164
+Node: Example-- Binary Search Trees125485
+Node: Hash Tables132693
+Node: Control140177
+Node: Blocks140854
+Node: Context144061
+Node: Conditionals146825
+Node: Iteration-basic operators150415
+Node: Multiple Values154433
+Node: Aborts157166
+Node: Example-- Date Arithmetic159491
+Node: Functions168999
+Node: Global Functions169499
+Node: Local Functions171838
+Node: Parameter Lists173644
+Node: Example-- Utilities176733
+Node: Closures182373
+Node: Example-- Function Builders186407
+Node: Dynamic Scope190363
+Node: Compilation193343
+Node: Using Recursion195378
+Node: Input/Output202833
+Node: Streams203563
+Node: Input207746
+Node: Output211342
+Node: Example-- String Substitution215719
+Node: Macro Characters225349
+Node: Symbols230169
+Node: Symbol Names230855
+Node: Property Lists232789
+Node: Symbols Are Big234014
+Node: Creating Symbols235184
+Node: Multiple Packages236926
+Node: Keywords239645
+Node: Symbols and Variables241014
+Node: Example-- Random Text242071
+Node: Numbers249046
+Node: Number Types249502
+Node: Conversion and Extraction251352
+Node: Comparison255192
+Node: Arithmetic257107
+Node: Exponentiation258811
+Node: Trigonometric Functions259536
+Node: Representation260457
+Node: Example-- Ray-Tracing262909
+Node: Macros278404
+Node: Eval278889
+Node: Defining Macros282383
+Node: Backquote284530
+Node: Example-- Quicksort286566
+Node: Macro Design288596
+Node: Generalized Reference293163
+Node: Example-- Macro Utilities295138
+Node: On Lisp300834
+Node: CLOS304067
+Node: Object-Oriented Programming304749
+Node: Classes and Instances309251
+Node: Slot Properties310328
+Node: Superclasses314071
+Node: Precedence315604
+Node: Generic Functions319034
+Node: Auxiliary Methods325024
+Node: Method Combination329626
+Node: Encapsulation332390
+Node: Two Models334700
+Node: Structure339374
+Node: Shared Structure339992
+Node: SI341691
+Node: Modification343487
+Node: Example-- Queues346389
+Node: Destructive Functions348185
+Node: Example-- Binary Search Trees II351390
+Node: Example-- Doubly-Linked Lists353229
+Node: Circular Structure358760
+Node: Constant Structure362187
+Node: Speed366121
+Node: The Bottleneck Rule367324
+Node: Compilation II370412
+Node: Type Declarations376286
+Node: Garbage Avoidance385530
+Node: Example-- Pools393454
+Node: Fast Operators396286
+Node: Two-Phase Development399828
+Node: Advanced Topics404427
+Node: Type Specifiers405027
+Node: Binary Streams408414
+Node: Read-Macros409672
+Node: Packages413523
+Node: The Loop Facility419053
+Node: Conditions426887
+Node: Example-- Inference430621
+Node: The Aim431453
+Node: Matching433569
+Node: Answering Queries437131
+Node: Analysis444847
+Node: Example-- Generating HTML447128
+Node: Example-- Objects447314
+Node: A-- Debugging447478
+Node: B-- Lisp in Lisp447625
+Node: C-- Changes to Common Lisp447787
+Node: D-- Language Reference447978
+Node: Index448150
+
+End Tag Table
