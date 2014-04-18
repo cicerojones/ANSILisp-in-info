@@ -768,7 +768,8 @@ expressions that will make up the body of the function. Here is how we
 might define THIRD :
 
 
-> (defun our-third (x) (car (cdr (cdr x ) ) ) )
+> (defun our-third (x)
+    (car (cdr (cdr x ) ) ) )
 OUR-THIRD
 
 The first argument says that the name of this function will be
@@ -804,7 +805,9 @@ By replacing these particular numbers with variables, we can write a
 function that will test whether the sum of any two numbers is greater
 than a third:
 
-> (defun sum-greater (x y z) (> (+ x y) z))
+> (defun sum-greater
+      (x y z)
+    (> (+ x y) z))
 SUM-GREATER
 
 > (sum-greater 1 4 3)
@@ -929,7 +932,12 @@ the definition of our-member if it looked like this:
 1 In vi, you can turn on paren-matching with : s e t sm. In Emacs, M-x
 lisp-mode is a good way to get it.
 
-(defun our-member (obj lst) (if (null lst) nil (if (eql (car lst) obj) lst (our-member obj (cdr lst)))))
+(defun our-member (obj lst)
+  (if (null lst)
+      nil
+    (if (eql (car lst) obj)
+	lst
+      (our-member obj (cdr lst)))))
 
 But when the code is properly indented, one has no trouble. You could
 omit most of the parentheses and still read it:
@@ -1053,8 +1061,12 @@ to +. The value of the last expression is returned as the value of the
 l e t . Here is an example of a more selective version of askem
 written using l e t :
 
-(defun ask-number () (format t "Please enter a number. ")  (let ((val
-  (read))) (if (numberp val) val (ask-number))))
+(defun ask-number ()
+  (format t "Please enter a number. ")
+  (let ((val (read)))
+    (if (numberp val)
+	val
+      (ask-number))))
 
 This function creates a variable v a l to hold the object returned by
 read. Because it has a handle on this object, the function can look at
@@ -1537,9 +1549,19 @@ arguments, and denoted by lambda expressions.
 
 @item Define a function that takes two arguments and returns the greater of the two.
 @item What do these functions do?
-(a) (defun enigma (x) (and (not (null x)) (or (null (car x)) (enigma (cdr x)))))
+(a) (defun enigma (x)
+      (and (not (null x))
+	   (or (null (car x))
+	       (enigma (cdr x)))))
 
-(b) (defun mystery (x y) (if (null y) nil (if (eql (car y) x) 0 (let ((z (mystery x (cdr y)))) (and z (+ z 1))))))
+(b) (defun mystery (x y)
+      (if (null y)
+	  nil
+	(if (eql (car y) x)
+	    0
+	  (let ((z (mystery x (cdr y))))
+	    (and z
+		 (+ z 1))))))
 
 @item What could occur in place of the x in each of the following exchanges? (a)
 
@@ -1558,11 +1580,16 @@ arguments, and denoted by lambda expressions.
 (a)
 
 (defun summit ( lst )
-(remove nil lst) (apply #' + lst))
+  (remove nil lst)
+  (apply #' + lst))
 
 (b)
 
-(defun summit (lst) (let ((x (car lst))) (if (null x) (summit (cdr lst)) (+ x (summit (cdr lst))))))
+(defun summit (lst)
+  (let ((x (car lst)))
+    (if (null x)
+	(summit (cdr lst))
+      (+ x (summit (cdr lst))))))
 @end enumerate
 
 @node Lists
@@ -1698,11 +1725,14 @@ elements is called aflat list.
 
 The function consp returns true if its argument is a cons. So LIST p could be defined:
 
-(defun our-listp (x) (or (null x) (consp x)))
+(defun our-listp (x)
+  (or (null x)
+      (consp x)))
 
 Since everything that is not a cons is an atom, the predicate atom could be defined:
 
-(defun our-atom (x) (not (consp x ) ) )
+(defun our-atom (x)
+  (not (consp x ) ) )
 
 Note that NIL is both an atom and a list.
 
@@ -1735,7 +1765,12 @@ T
 
 This predicate works for other kinds of structures besides lists, but a version for lists alone might be defined:
 
-(defun our-equal (x y) (or (eql x y) (and (consp x) (consp y) (our-equal (car x) (car y)) (our-equal (cdr x) (cdr y)))))
+(defun our-equal (x y)
+  (or (eql x y)
+      (and (consp x)
+	   (consp y)
+	   (our-equal (car x) (car y))
+	   (our-equal (cdr x) (cdr y)))))
 
 As this definition suggests, if some x and y are eql, they are also equal.
 
@@ -1812,7 +1847,11 @@ new list will have the same elements, but contained in new conses:
 
 Figure 3.5 shows the structure that results\; the return value is like a new bus with the same passengers. We could think of c o p y - LIST as being defined:
 
-(defun o u r - c o p y - LIST ( lst ) ( i f (atom lst ) lst (cons (car lst ) ( o u r - c o p y - LIST (cdr lst ) ) ) ) )
+(defun our-copy-LIST (lst)
+  (if (atom lst )
+      lst
+    (cons (car lst )
+	  (our-copy-LIST (cdr lst ) ) ) ) )
 
 This definition implies that x and ( c o p y - LIST x) will always be
 equal, and never eql unless x is NIL .
@@ -1836,7 +1875,10 @@ EXAMPLE: COMPRESSION
 
 37
 
-(defun compress (x) (if (consp x) (compr (car x) 1 (cdr x)) x))
+(defun compress (x)
+  (if (consp x)
+      (compr (car x) 1 (cdr x))
+    x))
 
 (defun compr (elt n lst )
   (if (null lst )
@@ -1846,7 +1888,10 @@ EXAMPLE: COMPRESSION
 	    (compr e l t (+ n 1) (cdr lst ))
 	    (cons ( n - e l t s e l t n) (compr next 1 (cdr lst )))))))
 
-(defun n-elts (elt n) (if (> n 1) (list n elt) elt))
+(defun n-elts (elt n)
+  (if (> n 1)
+      (list n elt)
+    elt))
 
 Figure 3.6: Run-length encoding: Compression. ]
 
@@ -1890,13 +1935,18 @@ page38
 
 LISTS
 
-(defun uncompress ( lst ) (if (null lst) nil (let ( (elt ('car lst )) ( r e s t (uncompress (cdr lst )))) ( i f (consf ) e l t ) (append (apply # ' LIST - o f e l t ) rest) (cons e l t r e s t )))))
+(defun uncompress ( lst )
+  (if (null lst)
+      nil
+    (let ( (elt ('car lst )) ( r e s t (uncompress (cdr lst ))))
+      (if (consf ) e l t )
+      (append (apply # ' LIST - o f e l t ) rest)
+      (cons e l t r e s t )))))
 
-(defun LIST - o f (n e l t ) (lf (zerop n) nil (cons e l t ( LIST - o f
-
-1
-
-(- n 1) e l t ))))
+(defun LIST-of (n e l t )
+  (if (zerop n)
+      nil
+    (cons e l t ( LIST - o f 1 (- n 1) e l t ))))
 
 
 1
@@ -1947,7 +1997,7 @@ The code in this section is our first example of a substantial
 program. When one wants to write functions of more than a couple
 lines, it's usual to type the code into a file, and then use load to
 get Lisp to read the definitions. If we stored the code in Figures 3.6
-and 3.7 in a file called "compress. l i s p " , then typing
+and 3.7 in a file called "compress.lisp" , then typing
 
 
 (load "compress.lisp")
@@ -1961,13 +2011,6 @@ than " . l i s p " .
 @section Access
 
 
-
-
-
-
-
-
-
 Common Lisp has additional access functions defined in terms of car
 and cdr. To find the element at a given position in a list we call
 nth, > (nth 0 ' ( a b c)) A and to find the nth cdr, we call nthcdr: >
@@ -1979,22 +2022,17 @@ data structure, the numbering starts at zero.
  The two functions do almost the same thing\; n t h is equivalent to
  car of nthcdr. Without error-checking, nthcdr could be defined as:
 
+(defun our-nthcdr (n lst)
+  (if (zerop n)
+      lst
+    (our-nthcdr ( - n 1) (cdr lst))))
 
 
+The function zerop just returns true if its argument is zero. The
+function l a s t returns the last cons in a list:
 
-
-
-(defun our-nthcdr (n lst) (if (zerop n) lst (our-nthcdr ( - n 1) (cdr lst))))
-
-
-
-
-
-
-
-
-
-The function zerop just returns true if its argument is zero. The function l a s t returns the last cons in a list: > ( l a s t ' ( a b c)) (C)
+> ( l a s t ' ( a b c))
+(C)
 
 page40
 
@@ -2079,9 +2117,13 @@ a tree:
 
 If we define a version of subst, it comes out looking a lot like copy-tree:
 
-(defun o u r - s u b s t (new old t r e e ) ( i f (eql t r e e old)
-new ( i f (atom t r e e ) tree (cons ( o u r - s u b s t new old (car
-t r e e )) ( o u r - s u b s t new old (cdr t r e e ))))))
+(defun our-subst (new old tree)
+  (if (eql tree old)
+      new
+    (if (atom tree)
+	tree
+      (cons (our-subst new old (car tree))
+	    (our-subst new old (cdr tree))))))
 
 Functions that operate on trees usually have this form, recursing down
 both the car and cdr. Such functions are said to be doubly recursive.
@@ -2110,7 +2152,10 @@ recursive function for finding the length of a list:
 
 
 
-(defun len (lst) (if (null lst) 0 (+ (len (cdr lst)) 1)))
+(defun len (lst)
+  (if (null lst)
+      0
+    (+ (len (cdr lst)) 1)))
 
 We can assure ourselves that this function is correct by verifying two things: 1. That it works for lists of length 0.
 
@@ -2148,7 +2193,10 @@ that the function is correct for all possible lists.
 
 
 
-(defun our-member (obj lst ) (if (eql (car lst ) obj) lst (our-member obj (cdr lst ))))
+(defun our-member (obj lst )
+  (if (eql (car lst ) obj)
+      lst
+    (our-member obj (cdr lst ))))
 
 ; wrong
 
@@ -2171,7 +2219,8 @@ more detail.
 element of a list is a member of the set it represents:
 
 
-2 The ; wrong in this definition is a comment. In Lisp code, everything from a semicolon to the end of the line is ignored.
+2 The "; wrong" in this definition is a comment. In Lisp code,
+everything from a semicolon to the end of the line is ignored.
 
 44
 
@@ -2214,15 +2263,23 @@ order doesn't matter.
  > (member ' a \; ( ( a b) ( e d )) ((A B) (C D)) :key # ' c a r )
 
 
-
-
-
 In this example, we asked if there was an element whose car was a.
 
  If we wanted to give both keyword arguments, we could give them in
  either order. The following two calls are equivalent:
 
- > (member 2 '((1) (2)) :key #\;car :test #'equal) ((2)) > (member 2 >((1) (2)) :test #'equal :key #>car) ((2)) Both ask if there is an element whose car is equal to 2. If we want to find an element satisfying an arbitrary predicate--like oddp, which returns true for odd integers--we can use the related member-if: > (member-if #>oddp ' ( 2 3 4)) (3 4)
+> (member 2 '((1) (2)) :key #\;car :test #'equal)
+((2))
+
+> (member 2 >((1) (2)) :test #'equal :key #>car)
+((2))
+
+Both ask if there is an element whose car is equal to 2. If we want to
+find an element satisfying an arbitrary predicate--like oddp, which
+returns true for odd integers--we can use the related member-if:
+
+> (member-if #>oddp ' ( 2 3 4))
+(3 4)
 
 3.11
 
@@ -2232,11 +2289,11 @@ SEQUENCES
 
 We could imagine a limited version of member-if being written:
 
-
-
-
-
-(defun our-member-if (fn lst ) (and (consp lst ) (if ( funcall fn (car lst )) lst (our-member-if fn (cdr lst )))))
+(defun our-member-if (fn lst )
+  (and (consp lst )
+       (if ( funcall fn (car lst ))
+	   lst
+	 (our-member-if fn (cdr lst )))))
 
 
 
@@ -2244,7 +2301,11 @@ The function adjoin is like a conditional cons. It takes an object and
 a list, and conses the object onto the list only if it is not already
 a member:
 
- > (adjoin 'b '(a b c)) (A B C) > (adjoin  z '(a b c)) (Z A B C)
+> (adjoin 'b '(a b c))
+(A B C)
+
+> (adjoin  z '(a b c))
+(Z A B C)
 
  In the general case it takes the same keyword arguments as
  member. The operations of set union, intersection, and complement are
@@ -2271,7 +2332,8 @@ functions that are especially applicable to lists. Operations on
 sequences are covered in more detail in Section 4.4.
 
 The function length returns the number of elements in a sequence:
-> (length >(a b c)) 3
+> (length '(a b c))
+3
 
 page46
 
@@ -2284,8 +2346,10 @@ We wrote a version of this function (limited to lists) on page 24.
  the third argument (optional) is the position of the first element
  not to be included.
 
- > (subseq ' ( a b c d) 1 2 ) (B)
-> (subseq (a b c d) 1) (B C D)
+> (subseq ' ( a b c d) 1 2 )
+(B)
+> (subseq (a b c d) 1)
+(B C D)
 
 If the third argument is omitted, the subsequence goes all the way to the end of the original sequence.
 
@@ -2299,7 +2363,12 @@ number of elements, then the second half will be a mirror of the
 first. Using length, subseq, and r e v e r s e , we can define a
 function
 
-(defun mirror? (s) (let ((len (length s))) (and (evenp len) (let ((mid ( / len 2))) (equal (subseq s 0 mid) (reverse (subseq s mid)))))))
+(defun mirror? (s)
+  (let ((len (length s)))
+    (and (evenp len)
+	 (let ((mid ( / len 2)))
+	   (equal (subseq s 0 mid)
+		  (reverse (subseq s mid)))))))
 
 that detects such palindromes: > (mirror? T '(abba))
 
@@ -2307,7 +2376,8 @@ Common Lisp has a built-in sort function called s o r t . It takes a
 sequence and a comparison function of two arguments, and returns a
 sequence with the same elements, sorted according to the function:
 
- > ( s o r t ' ( 0 2 1 3 8 ) #>>) (83210)
+> ( s o r t ' ( 0 2 1 3 8 ) #>>)
+(83210)
 
 You have to be careful when using s o r t , because it's
 destructive. For efficiency reasons, s o r t is allowed to modify the
@@ -2318,20 +2388,20 @@ original sequence modified, pass a copy.0
  n, and returns the nth greatest element of a list:
 
 
-
 3.12
 
 STACKS
 
 47
 
-
-(defun nthmost (n lst ) (nth (- n 1) (sort (copy-list lst) #'>)))
+(defun nthmost (n lst )
+  (nth (- n 1) (sort (copy-list lst) #'>)))
 
 We subtract one from the integer because n t h is zero-indexed, but it
 would be unintuitive if nthmost were.
 
- > (nthmost 2 ' ( 0 2 1 3 8)) 3
+> (nthmost 2 ' ( 0 2 1 3 8))
+3
 
 With some effort we could write a more efficient version of this
 function.
@@ -2406,7 +2476,11 @@ lists:
 
 
 
-(defun o u r - r e v e r s e ( lst ) (let ((ace NIL )) (dolist (elt lst) (push e l t ace)) ace))
+(defun our-reverse ( lst )
+  (let ((ace NIL ))
+    (dolist (elt lst)
+      (push elt ace))
+    ace))
 
 
 3.13
@@ -2437,7 +2511,10 @@ cdr is a proper list. That is, we could define a predicate that would
 return true only for proper lists as:3
 
 
-(defun proper-list? (x) (or (null x) (and (consp x) (proper-list? (cdr x)))))
+(defun proper-list? (x)
+  (or (null x)
+      (and (consp x)
+	   (proper-list? (cdr x)))))
 
 All the lists we've built so far have been proper lists.
 
@@ -2580,11 +2657,21 @@ page52
 
 LISTS
 
-(defun shortest-path (start end net) (bfs end (list (list start)) net))
+(defun shortest-path (start end net)
+  (bfs end (list (list start)) net))
 
-(defun bfs (end queue net) (if (null queue) nil (let ((path (car queue))) (let ((node (car path))) (if (eql node end) (reverse path) (bfs end (append (cdr queue) (new-paths path node net)) net))))))
+(defun bfs (end queue net)
+  (if (null queue)
+      nil
+    (let ((path (car queue)))
+      (let ((node (car path)))
+	(if (eql node end)
+	    (reverse path)
+	  (bfs end (append (cdr queue) (new-paths path node net)) net))))))
 
-(defun new-paths (path node net) (mapcar #'(lambda (n) (cons n path)) (cdr (assoc node net))))
+(defun new-paths (path node net)
+  (mapcar #'(lambda (n) (cons n path))
+	  (cdr (assoc node net))))
 
 Figure 3.12: Breadth-first search
 
@@ -2970,14 +3057,24 @@ SPECIALIZED DATA STRUCTURES
 
 
 
-(defun bin-search (obj vec) (let ((len (length vec))) (and (not (zerop len)) (finder obj vec 0 ( - len 1)))))
+(defun bin-search (obj vec)
+  (let ((len (length vec)))
+    (and (not (zerop len))
+	 (finder obj vec 0 ( - len 1)))))
 
 
-
-
-
-(defun finder (obj vec start end) (let ((range ( - end start))) (if (zerop range) (if (eql obj (aref vec start)) obJ ! !
-nil) (let ((mid (+ start (round ( / range 2))))) (let ((obj2 (aref vec mid))) (if (< obj obj2) (finder obj vec start ( - mid D) (if (> obj obj2) (finder obj vec (+ mid 1) end) obj)))))))
+(defun finder (obj vec start end)
+  (let ((range ( - end start)))
+    (if (zerop range)
+	(if (eql obj (aref vec start))
+	    obJ ! ! nil)
+      (let ((mid (+ start (round ( / range 2)))))
+	(let ((obj2 (aref vec mid)))
+	  (if (< obj obj2)
+	      (finder obj vec start ( - mid D)
+		      (if (> obj obj2)
+			  (finder obj vec (+ mid 1) end)
+			obj)))))))
 
 Figure 4.1: Searching a sorted vector.
 
