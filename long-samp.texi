@@ -7872,9 +7872,15 @@ Calling eval is one way to cross the line between lists and code. However, it is
 
 1. It's inefficient: eval is handed a raw list, and either has to compile it on the spot, or evaluate it in an interpreter. Either way is much slower than running compiled code.
 
-2. The expression is evaluated with no lexical context. If you call eval within a l e t , for example, the expressions passed to eval cannot refer to variables established by the l e t . There are much better ways (described in the next section) to take advantage of the possibility of generating code. Indeed, one of the only places where it is legitimate to use eval is in something like a toplevel loop. For programmers the main value of eval is probably as a conceptual model for Lisp. We can imagine it defined as a big cond expression:
+2. The expression is evaluated with no lexical context. If you call eval within a let , for example, the expressions passed to eval cannot refer to variables established by the let.
 
-(defun eval (expr env) (cond ... ((eql (car expr) 'quote) (cadr expr)) (t (apply (symbol-function (car expr)) (mapcar #'(lambda (x) (eval x env)) (cdr expr))))))
+There are much better ways (described in the next section) to take advantage of the possibility of generating code. Indeed, one of the only places where it is legitimate to use eval is in something like a toplevel loop. For programmers the main value of eval is probably as a conceptual model for Lisp. We can imagine it defined as a big cond expression:
+
+(defun eval (expr env)
+  (cond ...
+	((eql (car expr) 'quote) (cadr expr))
+	(t (apply (symbol-function (car expr))
+		  (mapcar #'(lambda (x) (eval x env)) (cdr expr))))))
 
 Most expressions are handled by the default clause, which says to get the function referred to in the car, evaluate all the arguments in the cdr, and return the result of applying the former to the latter.1 However, we can't do this for an expression like (quote x), since the whole point of quote is to preserve its argument from evaluation. So we have to have a distinct clause just for quote. That's what a special operator is, essentially: an operator that has to be implemented as a special case in eval. The functions coerce and compile provide a similar bridge from lists to code. You can coerce a lambda expression into a function, > (coerce '(lambda (x) x) ' f u n c t i o n ) #<Interpreted-Function BF9D96> and if you give NIL as the first argument to compile, it will compile a lambda expression given as the second argument.
 'To really duplicate Lisp, eval would have to take a second argument (here env) to represent the lexical environment. This model of eval is inaccurate in that it retrieves the function before evaluating the arguments, whereas in Common Lisp the order of these two operations is deliberately unspecified.
